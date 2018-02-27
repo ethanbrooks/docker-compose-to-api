@@ -1,9 +1,5 @@
 auth:
   image: 'firstandthird/node:8.9-2-dev'
-  ports:
-    - 8080
   labels:
     - "test=one"
     - "fire=everything"
-  volumes:
-    - '.:/home/app/src'

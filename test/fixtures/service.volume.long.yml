@@ -1,0 +1,18 @@
+auth:
+  image: 'firstandthird/node:8.9-2-dev'
+  volumes:
+    - type: volume
+      source: '.'
+      read_only: false
+      volume:
+        nocopy: false
+      target: '/home/app/src'
+    - type: bind
+      source: './static'
+      target: '/home/app/static'
+      bind:
+        propagation: 'shared'
+    - type: tmpfs
+      target: '/home/app/tmp'
+      tmpfs:
+        size: 1024

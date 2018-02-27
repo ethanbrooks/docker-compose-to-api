@@ -1,12 +1,6 @@
 auth:
   image: 'firstandthird/node:8.9-2-dev'
   command: ['bundle', 'exec', 'npm', 'test']
-  ports:
-    - 8080
-  labels:
-    traefik.frontend.rule: 'PathPrefix:/auth'
-  volumes:
-    - '.:/home/app/src'
   configs:
     main_config:
       file: ./main_config.txt

@@ -64,3 +64,58 @@ tap.test('dockerComposeToApi handles secrets', (t) => {
   t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Secrets, [{ SecretID: 'main_secret', SecretName: 'main_secret', File: "./main_secret.txt"}]);
   t.end();
 });
+
+tap.test('dockerComposeToApi handles short syntax for volume', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.volume.short.yml'), { encoding: 'utf8'});
+  var engineSpec = dockerComposeToApi(yaml);
+  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Mounts, [
+    {
+      Source: ".",
+      Target: "/home/app/src",
+      Type: "volume",
+    },
+    {
+      ReadOnly: true,
+      Source: "./test",
+      Target: "/home/app/test",
+      Type: "volume"
+    },
+    {
+      Source: "/home/app/static",
+      Type: "volume"
+    }
+  ]);
+  t.end();
+});
+
+tap.test('dockerComposeToApi handles long syntax for volume', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.volume.long.yml'), { encoding: 'utf8'});
+  var engineSpec = dockerComposeToApi(yaml);
+  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Mounts, [
+    {
+      Source: ".",
+      Target: "/home/app/src",
+      Type: "volume",
+      ReadOnly: false,
+      VolumeOptions: {
+        NoCopy: false
+      }
+    },
+    {
+      Source: "./static",
+      Target: "/home/app/static",
+      Type: "bind",
+      BindOptions: {
+        Propagation: 'shared'
+      }
+    },
+    {
+      Type: 'tmpfs',
+      Target: '/home/app/tmp',
+      TmpfsOptions: {
+        SizeBytes: 1024
+      }
+    }
+  ]);
+  t.end();
+});

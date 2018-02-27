@@ -1,0 +1,6 @@
+auth:
+  image: 'firstandthird/node:8.9-2-dev'
+  volumes:
+    - '.:/home/app/src'
+    - './test:/home/app/test:ro'
+    - '/home/app/static'
