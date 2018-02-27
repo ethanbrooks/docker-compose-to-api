@@ -1,0 +1,29 @@
+{
+  "name": "docker-compose-to-api",
+  "version": "1.0.0",
+  "description": "Converts Docker compose YAML syntax into a Docker engine compatible object",
+  "main": "./lib/index.js",
+  "scripts": {
+    "test": "tap --cov --bail test",
+    "lint": "eslint ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/firstandthird/docker-compose-to-api.git"
+  },
+  "author": "First+Third",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/firstandthird/docker-compose-to-api/issues"
+  },
+  "homepage": "https://github.com/firstandthird/docker-compose-to-api#readme",
+  "dependencies": {
+    "js-yaml": "^3.10.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.18.1",
+    "eslint-config-firstandthird": "^4.3.0",
+    "eslint-plugin-import": "^2.9.0",
+    "tap": "^11.1.1"
+  }
+}
