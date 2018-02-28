@@ -1,0 +1,6 @@
+auth:
+  image: 'firstandthird/node:8.9-2-dev'
+  ports:
+    - 8080
+    - '8081:81'
+    - '5000:30/udp'

@@ -65,6 +65,13 @@ tap.test('dockerComposeToApi handles secrets', (t) => {
   t.end();
 });
 
+tap.test('dockerComposeToApi handles restart', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.restart.yml'), { encoding: 'utf8'});
+  var engineSpec = dockerComposeToApi(yaml);
+  t.equal(engineSpec.TaskTemplate.RestartPolicy, 'any');
+  t.end();
+});
+
 tap.test('dockerComposeToApi handles short syntax for volume', (t) => {
   var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.volume.short.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
@@ -115,6 +122,52 @@ tap.test('dockerComposeToApi handles long syntax for volume', (t) => {
       TmpfsOptions: {
         SizeBytes: 1024
       }
+    }
+  ]);
+  t.end();
+});
+
+tap.test('dockerComposeToApi handles short syntax for port', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.port.short.yml'), { encoding: 'utf8'});
+  var engineSpec = dockerComposeToApi(yaml);
+  t.deepEqual(engineSpec.TaskTemplate.EndpointSpec.Ports, [
+    {
+      Protocol: 'tcp',
+      TargetPort: '8080'
+    },
+    {
+      Protocol: 'tcp',
+      TargetPort: '81',
+      PublishedPort: '8081'
+    },
+    {
+      Protocol: 'udp',
+      TargetPort: '30',
+      PublishedPort: '5000'
+    }
+  ]);
+  t.end();
+});
+
+tap.test('dockerComposeToApi handles long syntax for port', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.port.long.yml'), { encoding: 'utf8'});
+  var engineSpec = dockerComposeToApi(yaml);
+  t.deepEqual(engineSpec.TaskTemplate.EndpointSpec.Ports, [
+    {
+      Protocol: 'tcp',
+      TargetPort: '8080'
+    },
+    {
+      Protocol: 'tcp',
+      TargetPort: '81',
+      PublishedPort: '8081',
+      PublishMode: 'host'
+    },
+    {
+      Protocol: 'udp',
+      TargetPort: '30',
+      PublishedPort: '5000',
+      PublishMode: 'ingress'
     }
   ]);
   t.end();
