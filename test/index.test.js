@@ -16,6 +16,16 @@ tap.test('dockerComposeToApi handles container_name', (t) => {
   t.end();
 });
 
+tap.test('dockerComposeToApi works with a passed in object', (t) => {
+  var engineSpec = dockerComposeToApi({
+    auth: {
+      container_name: 'cool-auth'
+    }
+  });
+  t.deepEqual(engineSpec.Name, 'cool-auth');
+  t.end();
+});
+
 tap.test('dockerComposeToApi handles label as array', (t) => {
   var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.label.array.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
