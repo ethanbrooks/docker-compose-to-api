@@ -10,7 +10,7 @@ tap.test('dockerComposeToApi should be a function', (t) => {
 });
 
 tap.test('dockerComposeToApi handles container_name', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.full.yml'), { encoding: 'utf8'});
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.name.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
   t.deepEqual(engineSpec.Name, 'cool-auth');
   t.end();

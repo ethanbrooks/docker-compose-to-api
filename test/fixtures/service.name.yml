@@ -1,0 +1,3 @@
+auth:
+  image: 'firstandthird/node:8.9-2-dev'
+  container_name: 'cool-auth'
