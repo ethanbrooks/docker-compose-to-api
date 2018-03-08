@@ -18,7 +18,8 @@
   },
   "homepage": "https://github.com/firstandthird/docker-compose-to-api#readme",
   "dependencies": {
-    "js-yaml": "^3.10.0"
+    "js-yaml": "^3.10.0",
+    "bytes": "^3.0.0"
   },
   "devDependencies": {
     "eslint": "^4.18.1",

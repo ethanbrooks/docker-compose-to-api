@@ -92,8 +92,22 @@ tap.test('dockerComposeToApi handles restart', (t) => {
 tap.test('dockerComposeToApi handles deploy', (t) => {
   var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.deploy.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
+  t.deepEqual(engineSpec.Mode, {
+    Replicated: { Replicas: 6 }
+  });
   t.deepEqual(engineSpec.TaskTemplate.Placement, {
-    Constraints: ['one=two', 'three=four']
+    Constraints: ['node.role == manager', 'engine.labels.operatingsystem == ubuntu 14.04'],
+    Preferences: [{ Spread: { SpreadDescriptor: 'node.labels.zone' }}]
+  });
+  t.deepEqual(engineSpec.TaskTemplate.Resources, {
+    Limits: {
+      NanoCPUs: 0.5,
+      MemoryBytes: 52428800
+    },
+    Reservations: {
+      NanoCPUs: 0.25,
+      MemoryBytes: 20971520
+    }
   });
   t.end();
 });

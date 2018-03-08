@@ -2,6 +2,8 @@ auth:
   image: 'firstandthird/node:8.9-2-dev'
   deploy:
     endpoint_mode: 'vip'
+    mode: 'replicated'
+    replicas: 6
     labels:
       - 'one=two'
       - 'three=four'
@@ -11,3 +13,10 @@ auth:
         - 'engine.labels.operatingsystem == ubuntu 14.04'
       preferences:
         - spread: 'node.labels.zone'
+    resources:
+      limits:
+        cpus: '0.5'
+        memory: '50M'
+      reservations:
+        cpus: '0.25'
+        memory: '20M'
