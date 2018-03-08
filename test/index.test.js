@@ -92,8 +92,8 @@ tap.test('dockerComposeToApi handles restart', (t) => {
 tap.test('dockerComposeToApi handles deploy', (t) => {
   var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.deploy.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
-  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Secrets, {
-    SecretID: 'main_secret', SecretName: 'main_secret', File: "./main_secret.txt"
+  t.deepEqual(engineSpec.TaskTemplate.Placement, {
+    Constraints: ['one=two', 'three=four']
   });
   t.end();
 });
