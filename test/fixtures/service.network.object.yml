@@ -1,0 +1,11 @@
+auth:
+  image: 'firstandthird/node:8.9-2-dev'
+  networks:
+    first-network:
+      aliases:
+        - 'alias1'
+        - 'alias2'
+    second-network:
+      aliases:
+        - 'alias3'
+        - 'alias4'

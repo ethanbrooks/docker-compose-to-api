@@ -1,3 +1,0 @@
-auth:
-  image: 'firstandthird/node:8.9-2-dev'
-  restart: 'always'

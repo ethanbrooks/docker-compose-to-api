@@ -1,0 +1,5 @@
+auth:
+  image: 'firstandthird/node:8.9-2-dev'
+  networks:
+    - 'first-network'
+    - 'second-network'

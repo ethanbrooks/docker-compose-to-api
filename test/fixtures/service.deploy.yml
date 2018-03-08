@@ -13,6 +13,18 @@ auth:
         - 'engine.labels.operatingsystem == ubuntu 14.04'
       preferences:
         - spread: 'node.labels.zone'
+    restart_policy:
+      condition: on-failure
+      delay: '5s'
+      max_attempts: 3
+      window: '120s'
+    update_config:
+      parallelism: 2
+      delay: '10s'
+      order: 'stop-first'
+      max_failure_ratio: 0.125
+      monitor: '2s'
+      failure_action: 'continue'
     resources:
       limits:
         cpus: '0.5'
