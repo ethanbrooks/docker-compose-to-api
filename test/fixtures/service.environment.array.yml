@@ -1,0 +1,5 @@
+auth:
+  image: 'firstandthird/node:8.9-2-dev'
+  environment:
+    - 'APP_NAME=micro-auth'
+    - 'REDIRECT_URL=/info'

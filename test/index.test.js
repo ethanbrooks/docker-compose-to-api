@@ -26,15 +26,15 @@ tap.test('dockerComposeToApi works with a passed in object', (t) => {
   t.end();
 });
 
-tap.test('dockerComposeToApi handles label as array', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.label.array.yml'), { encoding: 'utf8'});
+tap.test('dockerComposeToApi handles label as object', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.label.object.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
   t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Labels, { 'test': 'one', 'fire': 'everything' });
   t.end();
 });
 
-tap.test('dockerComposeToApi handles label as dictionary', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.label.dictionary.yml'), { encoding: 'utf8'});
+tap.test('dockerComposeToApi handles label as array', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.label.array.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
   t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Labels, { 'test': 'one', 'fire': 'everything' });
   t.end();
@@ -54,8 +54,15 @@ tap.test('dockerComposeToApi handles command as string', (t) => {
   t.end();
 });
 
-tap.test('dockerComposeToApi handles environment variables', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.environment.yml'), { encoding: 'utf8'});
+tap.test('dockerComposeToApi handles environment variables as object', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.environment.object.yml'), { encoding: 'utf8'});
+  var engineSpec = dockerComposeToApi(yaml);
+  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Env, ['APP_NAME=micro-auth','REDIRECT_URL=/info']);
+  t.end();
+});
+
+tap.test('dockerComposeToApi handles environment variables as array', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.environment.array.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
   t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Env, ['APP_NAME=micro-auth','REDIRECT_URL=/info']);
   t.end();
@@ -82,8 +89,17 @@ tap.test('dockerComposeToApi handles restart', (t) => {
   t.end();
 });
 
-tap.test('dockerComposeToApi handles short syntax for volume', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.volume.short.yml'), { encoding: 'utf8'});
+tap.test('dockerComposeToApi handles deploy', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.deploy.yml'), { encoding: 'utf8'});
+  var engineSpec = dockerComposeToApi(yaml);
+  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Secrets, {
+    SecretID: 'main_secret', SecretName: 'main_secret', File: "./main_secret.txt"
+  });
+  t.end();
+});
+
+tap.test('dockerComposeToApi handles array syntax for volume', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.volume.array.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
   t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Mounts, [
     {
@@ -105,8 +121,8 @@ tap.test('dockerComposeToApi handles short syntax for volume', (t) => {
   t.end();
 });
 
-tap.test('dockerComposeToApi handles long syntax for volume', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.volume.long.yml'), { encoding: 'utf8'});
+tap.test('dockerComposeToApi handles object syntax for volume', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.volume.object.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
   t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Mounts, [
     {
@@ -137,8 +153,8 @@ tap.test('dockerComposeToApi handles long syntax for volume', (t) => {
   t.end();
 });
 
-tap.test('dockerComposeToApi handles short syntax for port', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.port.short.yml'), { encoding: 'utf8'});
+tap.test('dockerComposeToApi handles array syntax for port', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.port.array.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
   t.deepEqual(engineSpec.TaskTemplate.EndpointSpec.Ports, [
     {
@@ -159,8 +175,8 @@ tap.test('dockerComposeToApi handles short syntax for port', (t) => {
   t.end();
 });
 
-tap.test('dockerComposeToApi handles long syntax for port', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.port.long.yml'), { encoding: 'utf8'});
+tap.test('dockerComposeToApi handles object syntax for port', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.port.object.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
   t.deepEqual(engineSpec.TaskTemplate.EndpointSpec.Ports, [
     {

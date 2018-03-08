@@ -1,5 +1,5 @@
 auth:
   image: 'firstandthird/node:8.9-2-dev'
   labels:
-    - "test=one"
-    - "fire=everything"
+    test: 'one'
+    fire: 'everything'

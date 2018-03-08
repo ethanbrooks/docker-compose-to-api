@@ -1,6 +1,5 @@
 auth:
   image: 'firstandthird/node:8.9-2-dev'
-  command: ['bundle', 'exec', 'npm', 'test']
   configs:
     main_config:
       file: ./main_config.txt
