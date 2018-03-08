@@ -113,22 +113,6 @@ tap.test('dockerComposeToApi handles environment variables as array', (t) => {
   t.end();
 });
 
-tap.test('dockerComposeToApi handles configs', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.configs.yml'), { encoding: 'utf8'});
-  var engineSpec = dockerComposeToApi(yaml);
-  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Configs, [{ ConfigID: 'main_config', ConfigName: 'main_config', File: "./main_config.txt"}]);
-  t.equal(Joi.validate(engineSpec, validator).error, null);
-  t.end();
-});
-
-tap.test('dockerComposeToApi handles secrets', (t) => {
-  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.secrets.yml'), { encoding: 'utf8'});
-  var engineSpec = dockerComposeToApi(yaml);
-  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Secrets, [{ SecretID: 'main_secret', SecretName: 'main_secret', File: "./main_secret.txt"}]);
-  t.equal(Joi.validate(engineSpec, validator).error, null);
-  t.end();
-});
-
 tap.test('dockerComposeToApi handles deploy', (t) => {
   var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.deploy.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);

@@ -1,7 +1,0 @@
-auth:
-  image: 'firstandthird/node:8.9-2-dev'
-  configs:
-    main_config:
-      file: ./main_config.txt
-    second_config:
-      external: true
