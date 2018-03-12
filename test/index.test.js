@@ -19,6 +19,13 @@ tap.test('dockerComposeToApi handles container_name', (t) => {
   t.end();
 });
 
+tap.test('dockerComposeToApi can successfully convert an example schema', (t) => {
+  var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.example.yml'), { encoding: 'utf8'});
+  var engineSpec = dockerComposeToApi(yaml);
+  t.equal(Joi.validate(engineSpec, validator).error, null);
+  t.end();
+});
+
 tap.test('dockerComposeToApi works with a passed in object', (t) => {
   var engineSpec = dockerComposeToApi({
     auth: {

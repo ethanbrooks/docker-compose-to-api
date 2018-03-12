@@ -1,0 +1,44 @@
+web:
+  ports:
+    - '8080'
+  image: 'nginx:latest'
+  environment:
+    - 'REDIS_HOST=core_redis'
+    - 'PORT=8080'
+    - 'NODE_ENV=production'
+    - 'WP_LOG=true'
+    - 'ENABLE_CACHE=true'
+    - 'API_ENDPOINT=http://api:8080'
+    - 'AUTH_ENDPOINT=https://api.example.com/auth'
+    - 'TIMING=1'
+    - 'SLOW_THRESHOLD=500'
+    - 'CACHE_STATS=300000'
+    - 'CACHE_STATS_VERBOSE=1'
+    - 'OPS_INTERVAL=300000'
+  networks:
+    - 'traefik-net'
+    - 'db-net'
+  deploy:
+    restart_policy:
+      condition: on-failure
+      max_attempts: 5
+      delay: 3s
+      window: 10s
+    placement:
+      constraints:
+        - node.role == worker
+    update_config:
+      order: start-first
+      parallelism: 1
+      failure_action: 'rollback'
+      delay: 5s
+      monitor: 20s
+    resources:
+      limits:
+        cpus: '0.70'
+        memory: 512M
+    replicas: 4
+    labels:
+      traefik.port: 8080
+      traefik.docker.network: traefik-net
+      traefik.frontend.rule: "Host:example.org"
