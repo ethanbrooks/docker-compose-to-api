@@ -180,17 +180,17 @@ tap.test('dockerComposeToApi handles array syntax for volume', (t) => {
     {
       Source: ".",
       Target: "/home/app/src",
-      Type: "volume",
+      Type: "bind",
     },
     {
       ReadOnly: true,
       Source: "./test",
       Target: "/home/app/test",
-      Type: "volume"
+      Type: "bind"
     },
     {
       Source: "/home/app/static",
-      Type: "volume"
+      Type: "bind"
     }
   ]);
   t.equal(Joi.validate(engineSpec, validator).error, null);
@@ -236,17 +236,17 @@ tap.test('dockerComposeToApi handles array syntax for port', (t) => {
   t.deepEqual(engineSpec.EndpointSpec.Ports, [
     {
       Protocol: 'tcp',
-      TargetPort: '8080'
+      TargetPort: 8080
     },
     {
       Protocol: 'tcp',
-      TargetPort: '81',
-      PublishedPort: '8081'
+      TargetPort: 81,
+      PublishedPort: 8081
     },
     {
       Protocol: 'udp',
-      TargetPort: '30',
-      PublishedPort: '5000'
+      TargetPort: 30,
+      PublishedPort: 5000
     }
   ]);
   t.equal(Joi.validate(engineSpec, validator).error, null);
