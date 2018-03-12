@@ -91,7 +91,7 @@ tap.test('dockerComposeToApi handles label as array', (t) => {
 tap.test('dockerComposeToApi handles command as array', (t) => {
   var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.command.array.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
-  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Command, ['bundle', 'exec', 'npm', 'test']);
+  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Args, ['bundle', 'exec', 'npm', 'test']);
   t.equal(Joi.validate(engineSpec, validator).error, null);
   t.end();
 });
@@ -99,7 +99,7 @@ tap.test('dockerComposeToApi handles command as array', (t) => {
 tap.test('dockerComposeToApi handles command as string', (t) => {
   var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.command.string.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
-  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Command, ['bundle exec npm test']);
+  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Args, ['bundle exec npm test']);
   t.equal(Joi.validate(engineSpec, validator).error, null);
   t.end();
 });

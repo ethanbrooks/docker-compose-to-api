@@ -1,6 +1,6 @@
 {
   "name": "docker-compose-to-api",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "Converts Docker compose YAML syntax into a Docker engine compatible object",
   "main": "./lib/index.js",
   "scripts": {
