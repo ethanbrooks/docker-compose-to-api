@@ -145,11 +145,11 @@ tap.test('dockerComposeToApi handles deploy', (t) => {
       },
       Resources: {
         Limits: {
-          NanoCPUs: 0.5,
+          NanoCPUs: 500000000,
           MemoryBytes: 52428800
         },
         Reservations: {
-          NanoCPUs: 0.25,
+          NanoCPUs: 250000000,
           MemoryBytes: 20971520
         }
       },
