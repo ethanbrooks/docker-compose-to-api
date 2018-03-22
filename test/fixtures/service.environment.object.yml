@@ -3,3 +3,4 @@ auth:
   environment:
     APP_NAME: 'micro-auth'
     REDIRECT_URL: '/info'
+    CACHE_LENGTH: 100

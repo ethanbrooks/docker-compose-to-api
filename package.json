@@ -20,7 +20,7 @@
   "dependencies": {
     "bytes": "^3.0.0",
     "joi": "^13.1.2",
-    "joi-docker-compose": "^1.0.3",
+    "joi-docker-compose": "^1.0.4",
     "js-yaml": "^3.11.0",
     "ms": "^2.1.1"
   },

@@ -107,7 +107,7 @@ tap.test('dockerComposeToApi handles command as string', (t) => {
 tap.test('dockerComposeToApi handles environment variables as object', (t) => {
   var yaml = fs.readFileSync(path.join(__dirname, 'fixtures' , 'service.environment.object.yml'), { encoding: 'utf8'});
   var engineSpec = dockerComposeToApi(yaml);
-  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Env, ['APP_NAME=micro-auth','REDIRECT_URL=/info']);
+  t.deepEqual(engineSpec.TaskTemplate.ContainerSpec.Env, ['APP_NAME=micro-auth','REDIRECT_URL=/info', 'CACHE_LENGTH=100']);
   t.equal(Joi.validate(engineSpec, validator).error, null);
   t.end();
 });
