@@ -18,17 +18,16 @@
   },
   "homepage": "https://github.com/firstandthird/docker-compose-to-api#readme",
   "dependencies": {
-    "bytes": "^3.0.0",
-    "joi": "^13.1.2",
+    "bytes": "^3.1.0",
     "joi-docker-compose": "^1.0.4",
-    "js-yaml": "^3.11.0",
-    "ms": "^2.1.1"
+    "js-yaml": "^3.13.1",
+    "ms": "^2.1.2"
   },
   "devDependencies": {
-    "eslint": "^4.18.2",
-    "eslint-config-firstandthird": "^4.3.0",
-    "eslint-plugin-import": "^2.9.0",
+    "eslint": "^6.8.0",
+    "eslint-config-firstandthird": "^5.0.0",
+    "eslint-plugin-import": "^2.20.1",
     "joi-docker-engine": "^1.0.2",
-    "tap": "^11.1.2"
+    "tap": "^14.10.6"
   }
 }
